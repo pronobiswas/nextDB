@@ -8,7 +8,7 @@ export async function GET(req) {
   await dbConnection();
 
   try {
-    const posts = await PostModel.find().populate("author", "name email");
+    const posts = await PostModel.find();
     // .populate will include the author's name and email
     return NextResponse.json(posts);
   } catch (err) {
@@ -21,7 +21,8 @@ export async function GET(req) {
 export async function POST(req) {
   await dbConnection();
   const data = await req.json();
-
+  console.log(data);
+  
   try {
     const newPost = await PostModel.create(data);
     return NextResponse.json(newPost, { status: 201 });

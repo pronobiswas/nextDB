@@ -7,6 +7,7 @@ export default async function page() {
     return (
         <div>
             <h3>get post from JSON placeholder</h3>
+            <Link href='/posts/createPost' className='border px-5 py-2 mt-5 block w-fit'>create a new post</Link>
             <ul className='flex flex-wrap gap-5'>
                 {
                     AllPost.map((item) => (
