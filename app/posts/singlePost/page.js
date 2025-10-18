@@ -2,6 +2,10 @@ import getAllpost from '@/lib/featchapi'
 import React from 'react'
 
 export default async function page() {
+    const data = await fetch('/api/users')
+    const allUser = data.json;
+    console.log(allUser);
+    
     const AllPost = await getAllpost();
     const singlePost = Array.isArray(AllPost) && AllPost.length ? AllPost[0] : null;
 

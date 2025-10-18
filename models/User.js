@@ -1,10 +1,8 @@
-import Mongoose  from 'mongoose'
+// models/User.js
+import mongoose from "mongoose";
 
-const { Schema } = Mongoose;
-
-const UserSchema = new Schema(
-  {
-    firstName: {
+const UserSchema = new mongoose.Schema({
+  firstName: {
       type: String,
       required: [true, "frist mane missing"],
       trim: true,
@@ -78,10 +76,12 @@ const UserSchema = new Schema(
     avatar: {
       type: String,
     },
+    // cartItem: [{ type: Schema.Types.ObjectId, ref: "userCart" }],
     cartItem: [{ type: Schema.Types.ObjectId, ref: "userCart" }],
-  },
-  { timestamps: true }
-);
+  }
+  );
 
-const userModel = mongoose.model("user", UserSchema);
-module.exports = { userModel };
+// Use mongoose.models to avoid model overwrite errors in Next.js hot reload
+const UserModel = mongoose.models.User || mongoose.model("User", UserSchema);
+
+export default UserModel; // default export for route.js import
