@@ -27,7 +27,7 @@ export default function Page() {
       const data = await res.json();
 
       if (!res.ok) {
-        setMessage(data.error || "❌ Something went wrong");
+        setMessage(data.message || "❌ Something went wrong");
       } else {
         setMessage("✅ Signup successful! You can now log in.");
       }

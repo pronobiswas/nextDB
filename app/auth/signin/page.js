@@ -35,6 +35,21 @@ export default function SignInPage() {
     }
   };
 
+
+  async function sendVerification() {
+    const code = Math.floor(1000 + Math.random() * 9000);
+    const email = form.emailOrName;
+    const res = await fetch("/api/auth/forgotPassword", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ email, code }),
+    });
+
+    const data = await res.json();
+  }
+
+
+
   return (
     <div className="w-full h-[calc(100vh-200px)] flex flex-col items-center justify-center">
       <h2 className="text-2xl font-semibold mb-5">Sign In</h2>
@@ -79,7 +94,12 @@ export default function SignInPage() {
 
       <div className="flex gap-5 pt-5 text-blue-500">
         <Link href="/auth/signup">Sign Up Here</Link>
-        <Link href="/">Forgot Password?</Link>
+        {form.emailOrName && (
+          <Link href={`/auth/forgot-password/${encodeURIComponent(form.emailOrName)}` } onClick={sendVerification} >
+            Forgot Password?
+          </Link>
+        )}
+
       </div>
     </div>
   );
