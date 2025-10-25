@@ -28,7 +28,7 @@ export default function SignInPage() {
         setMessage(data.error || "❌ Something went wrong");
       } else {
         setMessage(`✅ Welcome ${data.user.name}!`);
-        // Optionally redirect to dashboard here
+        localStorage.setItem('user', JSON.stringify(data.user));
       }
     } catch (error) {
       setMessage("⚠️ Network error, please try again.");

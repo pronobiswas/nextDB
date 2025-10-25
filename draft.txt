@@ -1,0 +1,147 @@
+/app
+├─ /api
+│  ├─ /auth
+│  │  ├─ signup/route.js
+│  │  ├─ login/route.js
+│  │  ├─ verify-otp/route.js
+│  │  └─ forgot-password/route.js
+│  ├─ /products
+│  │  ├─ route.js          // GET all products, POST new product
+│  │  ├─ [id]/route.js     // GET, PUT, DELETE a single product
+│  ├─ /vendors
+│  │  ├─ route.js          // GET all vendors
+│  │  ├─ [id]/route.js     // GET, update vendor
+│  ├─ /orders
+│  │  ├─ route.js
+│  │  └─ [id]/route.js
+│  └─ /payments
+│     └─ route.js
+│
+├─ /components
+│  ├─ /common
+│  │  ├─ Header.jsx
+│  │  ├─ Footer.jsx
+│  │  ├─ Button.jsx
+│  │  └─ Input.jsx
+│  ├─ /product
+│  │  ├─ ProductCard.jsx
+│  │  ├─ ProductList.jsx
+│  │  └─ ProductGallery.jsx
+│  ├─ /vendor
+│  │  ├─ VendorCard.jsx
+│  │  └─ VendorProfile.jsx
+│  ├─ /cart
+│  │  ├─ CartItem.jsx
+│  │  └─ CartSummary.jsx
+│
+├─ /context
+│  ├─ AuthContext.jsx
+│  ├─ CartContext.jsx
+│  └─ VendorContext.jsx
+│
+├─ /lib
+│  ├─ dbConnection.js
+│  ├─ jwt.js
+│  ├─ sendMail.js
+│  └─ stripe.js
+│
+├─ /models
+│  ├─ User.js
+│  ├─ Vendor.js
+│  ├─ Product.js
+│  ├─ Order.js
+│  └─ Payment.js
+│
+├─ /hooks
+│  ├─ useAuth.js
+│  ├─ useCart.js
+│  └─ useFetch.js
+│
+├─ /styles
+│  ├─ globals.css
+│  ├─ tailwind.css
+│  └─ variables.css
+│
+├─ /vendor
+│  ├─ page.jsx               // Vendor dashboard
+│  ├─ /products
+│  │  ├─ page.jsx
+│  │  ├─ create.jsx
+│  │  └─ [id]/edit.jsx
+│  ├─ /orders
+│  │  ├─ page.jsx
+│  │  └─ [id].jsx
+│
+├─ /user
+│  ├─ page.jsx               // User dashboard
+│  ├─ /orders
+│  │  ├─ page.jsx
+│  │  └─ [id].jsx
+│  ├─ /profile
+│  │  └─ page.jsx
+│
+├─ /admin
+│  ├─ page.jsx               // Admin dashboard
+│  ├─ /vendors
+│  │  ├─ page.jsx
+│  │  └─ [id].jsx
+│  ├─ /products
+│  │  ├─ page.jsx
+│  │  └─ [id].jsx
+│
+├─ /checkout
+│  └─ page.jsx
+│
+├─ /verify
+│  └─ [email]/page.jsx
+│
+├─ layout.jsx
+└─ page.jsx                  // Homepage
+
+
+
+
+/app
+├─ /api
+│  ├─ /auth
+│  │  ├─ signup/route.js         // Register user & send OTP
+│  │  ├─ login/route.js          // Login user and return JWT
+│  │  ├─ verify-otp/route.js     // Verify OTP
+│  │  ├─ forgot-password/route.js
+│  │  └─ reset-password/route.js
+│  ├─ /products
+│  │  ├─ route.js                // GET all products, POST new product
+│  │  └─ [id]/route.js           // GET, PUT, DELETE product by ID
+│  ├─ /vendors
+│  │  ├─ route.js                // GET all vendors, create vendor
+│  │  └─ [id]/route.js           // GET, PUT vendor by ID
+│  ├─ /orders
+│  │  ├─ route.js                // POST new order, GET all orders
+│  │  └─ [id]/route.js           // GET, PUT, DELETE order by ID
+│  ├─ /payments
+│  │  └─ route.js                // Payment creation & verification
+│  └─ /notifications
+│     └─ email/route.js          // Send emails (verification, order, etc.)
+
+/models
+├─ User.js                       // Users schema
+├─ Vendor.js                     // Vendors schema
+├─ Product.js                    // Products schema
+├─ Order.js                      // Orders schema
+└─ Payment.js                    // Payments schema
+
+/lib
+├─ dbConnection.js               // MongoDB connection logic
+├─ jwt.js                        // JWT generate & verify helpers
+├─ sendMail.js                   // Nodemailer email helper
+└─ stripe.js                     // Stripe payment helper
+
+/utils
+├─ hashPassword.js               // Password hash & compare helper
+├─ generateOTP.js                // OTP generator
+└─ validateInput.js              // Input validation functions
+
+/middleware
+├─ authMiddleware.js             // JWT auth middleware for API routes
+└─ roleMiddleware.js             // Role-based access control (admin, vendor, user)
+

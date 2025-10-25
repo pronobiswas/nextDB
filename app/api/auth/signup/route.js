@@ -1,8 +1,10 @@
+// http://localhost:3000/api/auth/signup
 import { NextResponse } from "next/server";
 import nodemailer from "nodemailer";
 import { dbConnection } from "@/lib/dbConnection";
 import User from "@/models/User";
 import bcrypt from "bcryptjs";
+import jwt from "jsonwebtoken";
 
 export async function POST(req) {
 
@@ -29,8 +31,8 @@ export async function POST(req) {
     // ====craete user====
     const newUser = await User.create({ name, email: email.toLowerCase(), password: hashedPassword });
     // ====generate code====
-    const code = Math.floor(100000 + Math.random() * 900000);
-    const updateUser = await User.findByIdAndUpdate(newUser._id, { verificationCode: code }, { new: true });
+    const code = Math.floor(10000 + Math.random() * 90000);
+    const updateUser = await User.findByIdAndUpdate(newUser._id, { verificationCode: code,}, { new: true });
     console.log(updateUser);
     // ====Create transporter===
     const transporter = nodemailer.createTransport({

@@ -2,15 +2,18 @@
 
 import Link from "next/link";
 import { useState } from "react";
+import { useRouter } from "next/navigation";
+
 
 export default function Page() {
+  const router = useRouter();
   const [form, setForm] = useState({ name: "", email: "", password: "" });
   const [message, setMessage] = useState("");
+  const [responseData , setResponseData] = useState({});
 
   const handleChange = (e) => {
-    setForm({ ...form, [e.target.name]: e.target.value });
+    setForm({ ...form, [e.target.name]: e.target.value.trim()});
     console.log(form);
-    
   };
 
   const handleSubmit = async (e) => {
@@ -25,16 +28,23 @@ export default function Page() {
       });
 
       const data = await res.json();
+      setResponseData({data})
+      
 
       if (!res.ok) {
         setMessage(data.message || "❌ Something went wrong");
       } else {
         setMessage("✅ Signup successful! You can now log in.");
+        setTimeout(() => {
+          router.push(`/auth/verifyOTP/${encodeURIComponent(data.user.email)}`);
+        }, 500);
       }
     } catch (error) {
       setMessage("⚠️ Network error, please try again.");
     }
   };
+  console.log('Response Data' ,responseData);
+  
 
   return (
     <div className="w-full h-[calc(100vh-200px)] flex flex-col items-center justify-center">

@@ -1,42 +1,36 @@
-// app/api/send-verification/route.js
-import nodemailer from "nodemailer";
 import { NextResponse } from "next/server";
+import { dbConnection } from "@/lib/dbConnection";
+import User from "@/models/User";
 
 export async function POST(req) {
   try {
+    await dbConnection();
     const { email, code } = await req.json();
+    console.log("verification route",email,code);
+    
 
-    // Create transporter
-    const transporter = nodemailer.createTransport({
-      service: "gmail",
-      auth: {
-        user: process.env.SERVICE_MAIL, 
-        pass: process.env.APP_PASSWORD,
-      },
-    });
+    if (!email || !code) {
+      return NextResponse.json({ success: false, message: "Email and OTP are required" }, { status: 400 });
+    }
 
-    // Email options
-    const mailOptions = {
-      from: `"Your App Name" <${process.env.SERVICE_NAME}>`,
-      to: email,
-      subject: "Your Verification Code",
-      html: `
-        <div style="font-family: Arial, sans-serif; padding: 20px;">
-          <h2>Your Verification Code</h2>
-          <p>Use this code to verify your email:</p>
-          <div style="font-size: 24px; font-weight: bold; color: #007bff;">
-            ${code}
-          </div>
-        </div>
-      `,
-    };
+    const user = await User.findOne({ email: email.toLowerCase() });
 
-    // Send mail
-    await transporter.sendMail(mailOptions);
+    if (!user) {
+      return NextResponse.json({ success: false, message: "User not found" }, { status: 404 });
+    }
 
-    return NextResponse.json({ success: true, message: "Email sent successfully!" });
-  } catch (error) {
-    console.error("Email sending failed:", error);
-    return NextResponse.json({ success: false, message: "Failed to send email" }, { status: 500 });
+    // Mark user as verified and remove OTP
+    user.isVerified = true;
+    user.verificationCode = null;
+    await user.save();
+
+    // =====create access token with jwt=====
+    
+
+    return NextResponse.json({ success: true, message: "Email verified successfully" }, { status: 200 });
+
+  } catch (err) {
+    console.error(err);
+    return NextResponse.json({ success: false, message: "Server error" }, { status: 500 });
   }
 }
