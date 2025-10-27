@@ -42,7 +42,7 @@ export default function page() {
             </aside>
             <section className='w-5/6 h-full text-white'>
                 <div>
-                    <h3>logged in user {loggedInUser.id}</h3>
+                    <h3 className=''>logged in user {loggedInUser.id}</h3>
                 </div>
             </section>
         </div>

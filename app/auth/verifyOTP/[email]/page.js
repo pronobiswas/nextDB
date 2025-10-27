@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
 
 export default function VerifyPage({ params }) {
-  const email = decodeURIComponent(params.email);
+  const email = decodeURIComponent(params?.email || '');
   const [otp, setOtp] = useState('');
   const [message, setMessage] = useState('');
   const router = useRouter();

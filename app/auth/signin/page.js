@@ -2,15 +2,17 @@
 
 import React, { useState } from "react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 export default function SignInPage() {
+  const router = useRouter();
   const [form, setForm] = useState({ emailOrName: "", password: "" });
   const [message, setMessage] = useState("");
-
+  // =====andle input change====
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
-
+  // ======handle form submit====
   const handleSubmit = async (e) => {
     e.preventDefault();
     setMessage("⏳ Logging in...");
@@ -28,7 +30,8 @@ export default function SignInPage() {
         setMessage(data.error || "❌ Something went wrong");
       } else {
         setMessage(`✅ Welcome ${data.user.name}!`);
-        localStorage.setItem('user', JSON.stringify(data.user));
+        localStorage.setItem('loggedInUser', JSON.stringify(data));
+        router.push("/dashboard");
       }
     } catch (error) {
       setMessage("⚠️ Network error, please try again.");
@@ -95,7 +98,7 @@ export default function SignInPage() {
       <div className="flex gap-5 pt-5 text-blue-500">
         <Link href="/auth/signup">Sign Up Here</Link>
         {form.emailOrName && (
-          <Link href={`/auth/forgot-password/${encodeURIComponent(form.emailOrName)}` } onClick={sendVerification} >
+          <Link href={`/auth/forgot-password/${encodeURIComponent(form.emailOrName)}`} onClick={sendVerification} >
             Forgot Password?
           </Link>
         )}

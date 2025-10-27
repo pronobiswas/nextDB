@@ -18,6 +18,11 @@ const userSchema = new mongoose.Schema(
       enum: ["admin", "superadmin", "user"],
       default: "user",
     },
+    accessToken: { type: String },
+    sessions: [{ type: String }],
+    sessionsExpiry: [{ type: Date }],
+    // storeId: { type: mongoose.Schema.Types.ObjectId, ref: "Store" },
+    picture: { type: String },
   },
   { timestamps: true }
 );

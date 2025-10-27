@@ -32,18 +32,27 @@ export async function POST(req) {
       process.env.JWT_SECRET,
       { expiresIn: "1h" }
     );
+    const updateUser = await User.findOneAndUpdate({ _id: user._id }, { accessToken: token }, { new: true });
+    
+    const responseUser = updateUser
+      ? (() => {
+        const obj = updateUser.toObject ? updateUser.toObject() : JSON.parse(JSON.stringify(updateUser));
+        delete obj.password;
+        return obj;
+      })()
+      : null;
 
     // ====return success message====
-     const response =  NextResponse.json({
+    const response = NextResponse.json({
       message: "Login successful",
-      user: { id: user._id, name: user.name, email: user.email },
+      user: responseUser,
     });
     // ===set token on cookies===
     response.cookies.set("accessToken", token, {
       httpOnly: true,
       secure: process.env.NODE_ENV === "production",
       sameSite: "strict",
-      maxAge: 60 * 60 * 24,
+      maxAge: 60 * 60 * 24 * 5,
       path: "/",
     });
     return response;
