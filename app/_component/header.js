@@ -25,7 +25,7 @@ const handleAvatar = ()=>{
     try {
       const res = await fetch("/api/auth/logout", { method: "POST" });
       const data = await res.json();
-      return
+      
       if (res.ok && data.success) {
         localStorage.removeItem("loggedInUser");
         setUser(null);

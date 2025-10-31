@@ -1,8 +1,10 @@
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import Link from "next/link";
-import Header from "./component/header";
-import Footer from "./component/footer";
+import Header from "./_component/header";
+import Footer from "./_component/footer";
+import { Providers } from "./redux/Providers";
+
 
 export const metadata = {
   title: "Create Next App",
@@ -16,8 +18,7 @@ export default function RootLayout({ children }) {
         <Header/>
         
         <main className="p-5 bg-black text-white">
-
-        {children}
+        <Providers>{children}</Providers>
         </main>
         <Footer/>
       </body>

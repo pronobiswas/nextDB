@@ -3,11 +3,14 @@
 import React, { useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { useDispatch } from "react-redux";
+import { setUser } from "@/app/redux/features/userSlice";
 
 export default function SignInPage() {
   const router = useRouter();
   const [form, setForm] = useState({ emailOrName: "", password: "" });
   const [message, setMessage] = useState("");
+  const dispatch = useDispatch();
   // =====andle input change====
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
@@ -31,6 +34,11 @@ export default function SignInPage() {
       } else {
         setMessage(`✅ Welcome ${data.user.name}!`);
         localStorage.setItem('loggedInUser', JSON.stringify(data));
+        dispatch(setUser({
+          user: data.user,
+          token: data.token
+        }));
+
         router.push("/dashboard");
       }
     } catch (error) {
