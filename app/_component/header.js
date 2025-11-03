@@ -58,7 +58,7 @@ export default function Header() {
       const data = await res.json();
 
       if (res.ok && data.success) {
-        localStorage.removeItem('user');
+        localStorage.removeItem('loggedInUser');
         dispatch(setUser(null));
         router.push('/auth/signin');
       } else {
