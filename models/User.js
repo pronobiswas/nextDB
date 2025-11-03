@@ -22,7 +22,7 @@ const userSchema = new mongoose.Schema(
     sessions: [{ type: String }],
     sessionsExpiry: [{ type: Date }],
     // storeId: { type: mongoose.Schema.Types.ObjectId, ref: "Store" },
-    picture: { type: String },
+    picture: { type: Object },
   },
   { timestamps: true }
 );

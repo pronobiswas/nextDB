@@ -15,12 +15,14 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body >
-        <Header/>
-        
-        <main className="p-5 bg-black text-white">
-        <Providers>{children}</Providers>
-        </main>
-        <Footer/>
+        <Providers>
+          <Header />
+
+          <main className="p-5 bg-black text-white">
+            {children}
+          </main>
+          <Footer />
+        </Providers>
       </body>
     </html>
   );

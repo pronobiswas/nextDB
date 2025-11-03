@@ -1,11 +1,16 @@
+// api/user/getSingleUser
+
 import { NextResponse } from "next/server";
 import User from "@/models/User";
 import { dbConnection } from "@/lib/dbConnection";
+import { authenticateUser } from "@/helper/authMiddlewere";
 
 export async function GET(request) {
     const cookie = request.cookies.get('accessToken');
     const accessToken = cookie ? cookie.value : null;
     const user = await authenticateUser(accessToken);
+    console.log(user);
+    
     try {
         const searchParams = request.nextUrl.searchParams;
         const userId = searchParams.get("id");
