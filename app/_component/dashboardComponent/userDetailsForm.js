@@ -1,7 +1,10 @@
 'use client';
+import { setUser } from '@/app/redux/features/userSlice';
 import React, { useState, useEffect } from 'react';
+import { useDispatch } from 'react-redux';
 
 export default function UserDetailsForm({ currentUser }) {
+  const dispatch = useDispatch();
   const [form, setForm] = useState({
     name: currentUser.name || '',
     email: currentUser.email || '',
@@ -102,6 +105,7 @@ export default function UserDetailsForm({ currentUser }) {
       }
 
       const data = await res.json(); 
+      dispatch(setUser(data));
       console.log('User update response:', data);
 
     } catch (error) {

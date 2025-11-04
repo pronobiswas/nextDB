@@ -4,7 +4,7 @@ import Link from 'next/link';
 import React, { useEffect, useRef, useState } from 'react';
 import { useRouter, usePathname } from 'next/navigation';
 import { useDispatch } from 'react-redux';
-import { setUser } from '../redux/features/userSlice';
+import { clearUser, setUser } from '../redux/features/userSlice';
 
 export default function Header() {
   const dispatch = useDispatch();
@@ -26,41 +26,24 @@ export default function Header() {
       const parsedUser = JSON.parse(storedUser);
       setAuthor(parsedUser);
     }
-    if(author){
-      console.log("author",author);
-      const UID = author._id
-      const fetchData = async () => {
-        try {
-          const res = await fetch(`/api/user/getSingleUser?id=${UID}`)
-          const userData = await res.json()
-          console.log(userData);
-          dispatch(setUser(userData));
-          
-        } catch (error) {
-          console.log(error);
-          
-        }
-      }
-      fetchData()
-    }
-    
-  }, []);
+  }, [pathname]);
+
+
+
 
   // ===== Toggle dropdown =====
   const handleAvatar = () => {
     setShowUserMenu(!showUserMenu);
   };
 
-  // ===== Logout =====
-  const handleLogOut = async () => {
+  // =====logout form server====
+  const handleServerLogOut = async () => {
     try {
       const res = await fetch("/api/auth/logout", { method: "POST" });
       const data = await res.json();
 
       if (res.ok && data.success) {
-        localStorage.removeItem('loggedInUser');
-        dispatch(setUser(null));
-        router.push('/auth/signin');
+        console.log('signout succesfully :', data);
       } else {
         console.error(data.message);
       }
@@ -68,6 +51,15 @@ export default function Header() {
       console.error(err);
     }
   };
+  // ===== Logout =====
+  const handleLogOut =  () => {
+    handleServerLogOut()
+    setAuthor('')
+    setShowUserMenu(false);
+    localStorage.removeItem('loggedInUser');
+    dispatch(clearUser(null));
+  };
+
 
   // ===== Do not render until mounted (hydration safe) =====
   if (!mounted) return null;
@@ -112,7 +104,7 @@ export default function Header() {
       {/* Navigation Bar */}
       <nav className="w-full h-fit bg-black text-white p-5 border flex justify-between gap-12">
         <div className="flex items-center gap-10">
-          <span>logo</span>
+          <span className='text-2xl font-bold'>Logo</span>
           <ul className="flex gap-5">
             <li>
               <Link href="/">home</Link>
@@ -125,9 +117,6 @@ export default function Header() {
             </li>
             <li>
               <Link href="/posts">posts</Link>
-            </li>
-            <li>
-              <Link href="/dashboard">dashboard</Link>
             </li>
           </ul>
         </div>
@@ -154,18 +143,22 @@ export default function Header() {
             {/* Dropdown */}
             <div
               ref={loggedInuserRef}
-              className={`w-60 absolute top-12 right-0 z-10 bg-white text-black p-5 ${
-                showUserMenu ? 'block' : 'hidden'
-              }`}
+              className={`w-60 absolute top-12 right-0 z-10 bg-white text-black p-5 ${showUserMenu ? 'block' : 'hidden'
+                }`}
             >
               <p>{author?.user?.name || 'User Name'}</p>
               <p>{author?.user?.email || 'user email'}</p>
+
+              {/* ===control=== */}
+              <div className='w-full h-fit mt-3 flex gap-2 justify-between items-center'>
               <button
-                className="mt-3 border px-3 py-1"
+                className=" border px-3 py-1"
                 onClick={handleLogOut}
               >
                 Log out
               </button>
+              <Link href='/dashboard' className='font-light text-blue-600'>view profile</Link>
+              </div>
             </div>
           </div>
         ) : (

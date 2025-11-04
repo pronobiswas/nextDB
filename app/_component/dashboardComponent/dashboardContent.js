@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
 import UserDetailsForm from './userDetailsForm';
 import Image from 'next/image';
+import UserList from './userList';
 
 export default function DashboardContent() {
   const [showUpdateForm, setShowUpdateForm] = useState(false);
@@ -65,6 +66,7 @@ export default function DashboardContent() {
           </div>
         </section>
       )}
+      <UserList />
     </div>
   );
 }

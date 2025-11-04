@@ -13,9 +13,11 @@ export async function GET(request) {
     
     try {
         const searchParams = request.nextUrl.searchParams;
-        const userId = searchParams.get("id");
+        const uidFromToken = user._id;
+        const userId = searchParams?.get("id");
+        const idToFetch = userId || uidFromToken;
 
-        if (!userId) {
+        if (!idToFetch) {
             return NextResponse.json(
                 { error: "User ID is required" },
                 { status: 400 }
@@ -23,9 +25,9 @@ export async function GET(request) {
         }
 
         await dbConnection();
-        
-        const user = await User.findById(userId);
-        
+
+        const user = await User.findById(idToFetch);
+
         if (!user) {
             return NextResponse.json(
                 { error: "User not found" },
