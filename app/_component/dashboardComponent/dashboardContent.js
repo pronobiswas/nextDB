@@ -53,6 +53,40 @@ export default function DashboardContent() {
             {showUpdateForm ? 'Close Form' : 'Update User'}
           </button>
         </div>
+
+          {/* ============ VENDOR DASHBOARD FEATURES ============ */}
+        <section>
+          <div>
+            <h2>VENDOR DASHBOARD FEATURES</h2>
+            <h3>1. Vendor Overview</h3>
+            <ul>
+              <li>Today’s sales, total earnings</li>
+              <li>Orders pending/shipped/completed</li>
+              <li>Product performance summary</li>
+              <li>Low stock alerts</li>
+              <li>View all transactions</li>
+            </ul>
+
+            <h3>2. Product Management</h3>
+            <ul>
+              <li>Add/Edit/Delete products</li>
+              <li>Manage inventory</li>
+              <li>Discount management</li>
+              <li>Low stock alerts</li>
+              <li>Product status (Pending approval, Active, Rejected)</li>
+            </ul>
+
+            <h3>3. Orders</h3>
+            <ul>
+              <li>List of received orders</li>
+              <li>Order status management</li>
+              <li>Print packing slips/invoices</li>
+              <li>Refunds/Returns requests</li>
+              <li>Shipment tracking</li>
+            </ul>
+            
+          </div>
+        </section>
       </div>
 
       {/* =====update user form==== */}
