@@ -8,12 +8,13 @@ import { authenticateUser } from "@/helper/authMiddlewere";
 export async function GET(request) {
     const cookie = request.cookies.get('accessToken');
     const accessToken = cookie ? cookie.value : null;
-    const user = await authenticateUser(accessToken);
-    console.log(user);
+    
+    const authenticatedUser  = await authenticateUser(accessToken);
+    console.log("authenticatedUser from middlewere",authenticatedUser);
     
     try {
         const searchParams = request.nextUrl.searchParams;
-        const uidFromToken = user._id;
+        const uidFromToken = authenticatedUser?.id;
         const userId = searchParams?.get("id");
         const idToFetch = userId || uidFromToken;
 

@@ -29,14 +29,14 @@ export default function DashboardContent() {
     <div>
       {/* ===user details=== */}
       <div className="w-full h-fit flex items-end gap-8 border p-4 text-white">
-        <div className="w-40 h-40 bg-amber-200 rounded-full p-2">
+        <div className="w-40 h-40 bg-amber-200 rounded-full ">
           {currentUser.picture?.secure_url ? (
             <img
               src={currentUser.picture.secure_url}
               alt="User profile"
               width='160'
               height='160'
-              className="rounded-full"
+              className="rounded-full w-40 h-40"
             />
           ) : (
             <div className="w-40 h-40 bg-gray-500 rounded-full flex items-center justify-center text-white">
@@ -44,6 +44,7 @@ export default function DashboardContent() {
             </div>
           )}
         </div>
+
 
         <div>
           <p><span>User Name: </span>{currentUser.name}</p>
@@ -55,7 +56,7 @@ export default function DashboardContent() {
         </div>
 
           {/* ============ VENDOR DASHBOARD FEATURES ============ */}
-        <section>
+        <section className='hidden'>
           <div>
             <h2>VENDOR DASHBOARD FEATURES</h2>
             <h3>1. Vendor Overview</h3>
@@ -87,6 +88,14 @@ export default function DashboardContent() {
             
           </div>
         </section>
+      </div>
+      {/* =====change request==== */}
+      <div className="w-full h-fit border p-4 my-4 text-white">
+        <h2 className="text-lg font-semibold mb-2">Change Request</h2>
+        <div className='flex justify-between'>
+        <p>change user name</p>
+        <p>change password</p>
+        </div>
       </div>
 
       {/* =====update user form==== */}

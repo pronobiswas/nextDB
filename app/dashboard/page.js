@@ -10,6 +10,7 @@ export default function page() {
       <div className='wrapper w-full h-full min-h-[calc(100vh-270px)] flex gap-5'>
         <aside className='w-1/6 border'>
           <aside className='w-full h-full  bg-[gray]'>
+            <h2>ADMIN PANEL</h2>
         <nav className='min-h-[calc(100vh-270px)] flex flex-col gap-6'>
           {/* ===home== */}
           <div className='flex p-2'>
@@ -33,6 +34,13 @@ export default function page() {
           <div className='flex p-2'>
             <span>store</span>
           </div>
+          <ul>
+            <li>Approve/reject vendor registration</li>
+            <li>Manage all products</li>
+            <li>View all transactions</li>
+            <li>Manage site settings, commissions</li>
+            <li>Track disputes, refunds, and customer messages</li>
+          </ul>
         </nav>
       </aside>
         </aside>

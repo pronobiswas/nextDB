@@ -157,7 +157,7 @@ export default function Header() {
               >
                 Log out
               </button>
-              <Link href='/dashboard' className='font-light text-blue-600'>view profile</Link>
+              <Link href={`/dashboard/${author?.user?._id}`} className='font-light text-blue-600'>view profile</Link>
               </div>
             </div>
           </div>

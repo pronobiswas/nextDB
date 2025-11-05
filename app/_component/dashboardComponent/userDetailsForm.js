@@ -95,7 +95,7 @@ export default function UserDetailsForm({ currentUser }) {
       const res = await fetch('/api/auth/updateUser', {
         method: 'POST',
         headers: {
-          'Content-Type': 'application/json', 
+          'Content-Type': 'application/json',
         },
         body: JSON.stringify(userData),
       });
@@ -104,7 +104,7 @@ export default function UserDetailsForm({ currentUser }) {
         throw new Error(`Failed to update user: ${res.statusText}`);
       }
 
-      const data = await res.json(); 
+      const data = await res.json();
       dispatch(setUser(data));
       console.log('User update response:', data);
 
@@ -130,16 +130,25 @@ export default function UserDetailsForm({ currentUser }) {
           {error}
         </div>
       )}
-
-      <input
-        id='name'
-        value={form.name}
-        onChange={handleChange}
-        placeholder='Name'
-        className='border p-2 w-full rounded'
-        required
-      />
-
+      {/* ===username=== */}
+      <div>
+        <label htmlFor='name' className='block text-sm font-medium mb-1'>
+          Name
+        </label>
+        <input
+          id='name'
+          value={form.name}
+          onChange={handleChange}
+          placeholder='Name'
+          className='border p-2 w-full rounded'
+          required
+        />
+      </div>
+      {/* ===user email=== */}
+      <div>
+        <label htmlFor='email' className='block text-sm font-medium mb-1'>
+          Email
+        </label>
       <input
         id='email'
         type='email'
@@ -149,6 +158,10 @@ export default function UserDetailsForm({ currentUser }) {
         className='border p-2 w-full rounded'
         required
       />
+      </div>
+      {/* ===user role=== */}
+     
+
 
       <input
         id='role'
