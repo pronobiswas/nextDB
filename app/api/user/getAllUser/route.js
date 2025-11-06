@@ -6,9 +6,13 @@ import { dbConnection } from "@/lib/dbConnection";
 import User from "@/models/User";
 import { authenticateUser } from "@/helper/authMiddlewere";
 
-export async function GET(req) {
+export async function GET(request) {
   try {
-    const logInUser = await authenticateUser(req);
+    const cookie = request.cookies.get('accessToken');
+    const accessToken = cookie ? cookie.value : null;
+    console.log("Access Token:", accessToken);
+
+    const logInUser = await authenticateUser(accessToken);
     if (!logInUser) return NextResponse.json({ success: false, message: "Unauthorized" }, { status: 401 });
     
     await dbConnection();

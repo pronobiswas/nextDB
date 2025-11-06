@@ -58,6 +58,7 @@ export default function Header() {
     setShowUserMenu(false);
     localStorage.removeItem('loggedInUser');
     dispatch(clearUser(null));
+    router.push('/auth/signin');
   };
 
 

@@ -4,7 +4,6 @@ import jwt from "jsonwebtoken";
 export async function authenticateUser(token) {
   try {
     if (!token) {
-      // No token provided
       return null;
     }
 
